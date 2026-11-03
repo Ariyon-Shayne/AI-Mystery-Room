@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": { "dev": "node --watch src/server.js", "start": "node src/server.js", "test": "node --test" },
+  "scripts": {
+    "build": "node -e \"console.log('Server build complete')\"",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
   "dependencies": {
     "@google/genai": "^1.30.0",
     "cookie-parser": "^1.4.7",
