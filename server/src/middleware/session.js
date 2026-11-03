@@ -6,7 +6,14 @@ export function anonymousSession(req, res, next) {
   let token = req.cookies?.amr_session;
   if (!token || token.length < 40) {
     token = randomBytes(32).toString('base64url');
-    res.cookie('amr_session', token, { httpOnly: true, secure: env.NODE_ENV === 'production', sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax', maxAge: env.SESSION_TTL_DAYS * 86400000, path: '/' });
+    const isProd = env.NODE_ENV === 'production';
+    res.cookie('amr_session', token, {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
+      maxAge: env.SESSION_TTL_DAYS * 86400000,
+      path: '/'
+    });
   }
   req.sessionHash = hashSession(token);
   next();
